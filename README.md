@@ -47,28 +47,30 @@ git clone https://github.com/antrovibin/TMDB-Movie-Data-Processor-From-API-to-Da
 ###Step 2: Install Dependencies
 Navigate to your project directory and install the required dependencies:
 
-```cd TMDB-Movie-Data-Processor-From-API-to-Database-with-FastAPI
+```
+cd TMDB-Movie-Data-Processor-From-API-to-Database-with-FastAPI
 pip install -r requirements.txt
 ```
 
 ###Step 3: Run the API Locally
 To start the FastAPI application, run the following command in the project directory:
 
-```uvicorn main:app --reload
+```
+uvicorn main:app --reload
 ```
 This will start the FastAPI server locally at http://127.0.0.1:8000.
 
 ###Step 4: Open the API Documentation
 Once the server is running, you can view the interactive API documentation by navigating to:
-
-```http://127.0.0.1:8000/docs
+```
+http://127.0.0.1:8000/docs
 ```
 This will open the Swagger UI, where you can interact with the API, test endpoints, and upload/download Excel files.
 
 ###Step 5: Test the Endpoints
 You can test the following API endpoints:
-
-```GET /movies: Fetches a list of movies stored in the SQLite database.
+```
+GET /movies: Fetches a list of movies stored in the SQLite database.
 POST /upload-excel: Uploads an Excel file to the API. The file will be processed and saved to the database.
 GET /download-excel: Downloads the processed movie data as an Excel file.
 ```
