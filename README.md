@@ -33,6 +33,7 @@ TMDB-Movie-Data-Processor-From-API-to-Database-with-FastAPI/
 ├── etl.py             # ETL functions (fetching, processing, and storing data)
 ├── requirements.txt   # List of dependencies
 └── README.md          # Project documentation
+```
 
 
 **Running the Project**
