@@ -36,15 +36,15 @@ TMDB-Movie-Data-Processor-From-API-to-Database-with-FastAPI/
 ```
 
 
-##**Running the Project**
-###Step 1: Clone the Repository
+## **Running the Project**
+### Step 1: Clone the Repository
 Clone the repository to your local machine using the following command:
 
 ```bash
 git clone https://github.com/antrovibin/TMDB-Movie-Data-Processor-From-API-to-Database-with-FastAPI.git
 ```
 
-###Step 2: Install Dependencies
+### Step 2: Install Dependencies
 Navigate to your project directory and install the required dependencies:
 
 ```
@@ -52,7 +52,7 @@ cd TMDB-Movie-Data-Processor-From-API-to-Database-with-FastAPI
 pip install -r requirements.txt
 ```
 
-###Step 3: Run the API Locally
+### Step 3: Run the API Locally
 To start the FastAPI application, run the following command in the project directory:
 
 ```
@@ -60,14 +60,14 @@ uvicorn main:app --reload
 ```
 This will start the FastAPI server locally at http://127.0.0.1:8000.
 
-###Step 4: Open the API Documentation
+### Step 4: Open the API Documentation
 Once the server is running, you can view the interactive API documentation by navigating to:
 ```
 http://127.0.0.1:8000/docs
 ```
 This will open the Swagger UI, where you can interact with the API, test endpoints, and upload/download Excel files.
 
-###Step 5: Test the Endpoints
+### Step 5: Test the Endpoints
 You can test the following API endpoints:
 ```
 GET /movies: Fetches a list of movies stored in the SQLite database.
@@ -76,12 +76,12 @@ GET /download-excel: Downloads the processed movie data as an Excel file.
 ```
 
 
-###ETL Process
+## ETL Process
 
-###Extract
+### Extract
 The movie data is fetched from the TMDB API. The API returns movie details in JSON format. The etl.py script is responsible for extracting this raw data from the API.
 
-###Transform
+### Transform
 After extracting the raw data, we use Pandas to clean and transform it. The data is processed to include relevant columns such as:
 
 Movie title
