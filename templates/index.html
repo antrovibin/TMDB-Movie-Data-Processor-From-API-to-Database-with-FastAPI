@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel File Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        async function uploadFile(event) {
+            event.preventDefault();
+            let fileInput = document.getElementById("fileInput");
+            let file = fileInput.files[0];
+            if (!file) return;
+
+            let formData = new FormData();
+            formData.append("file", file);
+
+            let uploadButton = document.getElementById("uploadButton");
+            let loader = document.getElementById("loader");
+            uploadButton.disabled = true;
+            loader.style.display = "block";
+
+            let response = await fetch("/upload/", { method: "POST", body: formData });
+            let result = await response.json();
+
+            loader.style.display = "none";
+            uploadButton.disabled = false;
+
+            alert(result.message || result.error);
+            if (!result.error) location.reload();  // Refresh the page to show new file
+        }
+
+        async function deleteFile(filename) {
+            if (!confirm(`Are you sure you want to delete ${filename}?`)) return;
+
+            let response = await fetch(`/delete/${filename}`, { method: "DELETE" });
+            let result = await response.json();
+
+            alert(result.message || result.error);
+            if (!result.error) location.reload();
+        }
+
+        async function previewFile(filename) {
+            let response = await fetch(`/preview/${filename}`);
+            let result = await response.json();
+
+            if (result.error) {
+                alert(result.error);
+                return;
+            }
+
+            let table = document.getElementById("previewTable");
+            let tbody = document.getElementById("previewBody");
+            tbody.innerHTML = "";  // Clear previous preview
+
+            result.preview.forEach(row => {
+                let tr = document.createElement("tr");
+                Object.values(row).forEach(value => {
+                    let td = document.createElement("td");
+                    td.classList.add("py-2", "px-4", "border");
+                    td.textContent = value;
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+
+            table.style.display = "table";
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+        <h1 class="text-2xl font-bold text-center mb-4">Excel File Manager</h1>
+
+        <!-- File Upload Form -->
+        <form onsubmit="uploadFile(event)" class="flex flex-col items-center gap-4">
+            <input type="file" id="fileInput" class="block w-full px-4 py-2 border rounded-lg">
+            <button id="uploadButton" type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">Upload</button>
+            <div id="loader" style="display: none;" class="text-blue-500">Uploading...</div>
+        </form>
+
+        <!-- File List -->
+        <h2 class="text-xl font-semibold mt-6">Uploaded Files</h2>
+        <div class="mt-4">
+            <table class="w-full bg-white shadow-md rounded-lg overflow-hidden">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="py-2 px-4 text-left">File Name</th>
+                        <th class="py-2 px-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for file in files %}
+                    <tr class="border-b">
+                        <td class="py-2 px-4">{{ file }}</td>
+                        <td class="py-2 px-4 text-center">
+                            <a href="/download/{{ file }}" class="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600 transition">Download</a>
+                            <button onclick="deleteFile('{{ file }}')" class="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600 transition">Delete</button>
+                            <button onclick="previewFile('{{ file }}')" class="bg-yellow-500 text-white px-4 py-1 rounded-lg hover:bg-yellow-600 transition">Preview</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Preview Table -->
+        <h2 class="text-xl font-semibold mt-6">File Preview</h2>
+        <table id="previewTable" class="w-full bg-white shadow-md rounded-lg overflow-hidden mt-4 hidden">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-2 px-4">Column 1</th>
+                    <th class="py-2 px-4">Column 2</th>
+                    <th class="py-2 px-4">Column 3</th>
+                </tr>
+            </thead>
+            <tbody id="previewBody"></tbody>
+        </table>
+    </div>
+</body>
+</html>
