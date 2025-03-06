@@ -25,14 +25,15 @@ Requests (for making HTTP requests to the TMDB API)
 You can install the required dependencies using pip: pip install fastapi uvicorn pandas openpyxl requests
 
 **Project Structure**
+'''
 TMDB-Movie-Data-Processor-From-API-to-Database-with-FastAPI/
-│
 ├── main.py            # FastAPI app
 ├── database.py        # SQLite database handling
 ├── models.py          # Pydantic models
 ├── etl.py             # ETL functions (fetching, processing, and storing data)
 ├── requirements.txt   # List of dependencies
 └── README.md          # Project documentation
+
 
 **Running the Project**
 Step 1: Clone the Repository
