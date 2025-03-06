@@ -40,8 +40,9 @@ TMDB-Movie-Data-Processor-From-API-to-Database-with-FastAPI/
 ###Step 1: Clone the Repository
 Clone the repository to your local machine using the following command:
 
-```git clone https://github.com/antrovibin/TMDB-Movie-Data-Processor-From-API-to-Database-with-FastAPI.git
-```
+```bash
+git clone https://github.com/antrovibin/TMDB-Movie-Data-Processor-From-API-to-Database-with-FastAPI.git
+
 
 ###Step 2: Install Dependencies
 Navigate to your project directory and install the required dependencies:
